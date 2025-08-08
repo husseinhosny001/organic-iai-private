@@ -1,0 +1,13 @@
+مثال تطبيقي: اختراق نظام أمني
+```python
+# التهيئة
+reality_map = load_reality_map("security_system")
+model = TExNetOmegaEnhanced(reality_map)
+
+# بيانات الإدخال (يمكن أن تكون إشارة عصبية أو بيانات استشعار)
+input_data = torch.randn(1, 128)  # محاكاة لبيانات المستخدم
+target = "high_security_area"
+
+# التنفيذ
+output = model(input_data, target)
+print(f"نسبة الاختراق: {output.item():.2%}")
