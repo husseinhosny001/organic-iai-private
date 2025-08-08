@@ -1,0 +1,103 @@
+1. الهندسة المعمارية المتكاملة
+```mermaid
+graph TD
+    A[User Consciousness] --> B[TExNet-Ω Core]
+    B --> C{Hybrid Organic-Quantum Network}
+    C --> D[Organic Intelligence Layer]
+    C --> E[Quantum Consciousness Circuit]
+    D --> F[Reality Interface]
+    E --> F
+    F --> G((Real World))
+```
+
+### 2. الكود المعدل (دمج TExNet-Ω مع النظام الهجين)
+```python
+import torch
+from qiskit import QuantumCircuit
+from qiskit_machine_learning.neural_networks import SamplerQNN
+import numpy as np
+
+class TExNetOmegaEnhanced(torch.nn.Module):
+    def __init__(self, reality_map):
+        super().__init__()
+        
+        # مكونات TExNet-Ω
+        self.quantum_tunnel = QuantumTunnelEngine(reality_map) 
+        self.footprint_compressor = ExistentialCompressor()
+        
+        # مكونات الشبكة الهجينة
+        self.organic = OrganicLayer(128, 64)
+        self.quantum_nn = SamplerQNN(circuit=self._create_quantum_circuit())
+        self.reality_decoder = torch.nn.Linear(2, 10)
+        
+        # معاملات الشبحية
+        self.phantom_coeff = torch.nn.Parameter(torch.tensor(0.95))
+        self.temporal_cloak = TemporalCloak()
+    
+    def _create_quantum_circuit(self):
+        qc = QuantumCircuit(2)
+        qc.h(0)
+        qc.cx(0, 1)
+        qc.measure_all()
+        return qc
+    
+    def forward(self, x, reality_target):
+        # مرحلة الاختراق من TExNet-Ω
+        breach_state = self.quantum_tunnel.generate_tunneling_state(
+            target=reality_target,
+            energy=torch.norm(x)
+        )
+        
+        # معالجة عضوية
+        x = self.organic(x)
+        
+        # ضغط البصمة
+        x = self.footprint_compressor.compress(
+            x, 
+            target=self.phantom_coeff
+        )
+        
+        # اقتران كمومي
+        quantum_input = torch.sigmoid(x[:2])  # استخدام أول قيمتين
+        quantum_output = self.quantum_nn.run(quantum_input.detach().numpy())
+        
+        # تطبيق التمويه الزمني
+        output = self.temporal_cloak.apply(
+            self.reality_decoder(torch.tensor(quantum_output.samples[0]))
+        )
+        
+        return output
+
+# فئات مساعدة من TExNet-Ω
+class QuantumTunnelEngine:
+    def generate_tunneling_state(self, target, energy):
+        return torch.rand(64) * energy  # محاكاة مبسطة
+
+class ExistentialCompressor:
+    def compress(self, x, target):
+        return x * target
+
+class TemporalCloak:
+    def apply(self, x):
+        return x * torch.rand_like(x)  # محاكاة التمويه
+```
+
+### 3. التعديلات الرئيسية للدمج
+
+#### أ. اقتران وعي المستخدم
+```math
+\lambda_{\text{new}} = \frac{\langle \Psi_{\text{user}} | \hat{V}_{\text{micro-influence}} | \Psi_{\text{network}} \rangle}{\sqrt{\mathcal{D}_{\text{organic}} \cdot \mathcal{M}_{\text{phantom}}}
+```
+
+#### ب. ديناميكيات الطاقة الهجينة
+```python
+def compute_energy(self):
+    # طاقة عضوية + طاقة كمومية + طاقة اختراق
+    return (torch.norm(self.organic.growth) + 
+            self.quantum_nn.expected_value() + 
+            self.phantom_coeff**2)
+```
+
+#### ج. تحديث مترية البصمة
+```math
+\mathcal{F}_{\text{hybrid}} = \frac{\hbar}{2} \left(1 - \frac{\mathcal{D}_{\text{organic}}}{1 + e^{-\mathcal{M}_{\text{phantom}}}}\right)
