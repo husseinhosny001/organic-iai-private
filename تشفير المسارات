@@ -1,0 +1,3 @@
+تشفير المسارات**:
+```math
+\mathcal{P}_{\text{encrypted}} = \bigoplus_{k=1}^N \left( \mathcal{P}_k \otimes | \chi_k \rangle \langle \chi_k | \right)
