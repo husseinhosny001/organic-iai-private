@@ -1,0 +1,27 @@
+---
+
+## **2. ARCHITECTURE.md**
+```markdown
+# Organic iAI Architecture
+
+## Core Components
+1. **Dynamic Structured Memory (DSM)**
+   - تخزين سياقي طويل المدى
+   - تحديث ديناميكي للمفاهيم
+2. **Proactive Attention**
+   - تحليل استباقي للمدخلات
+   - تعزيز الارتباطات المفاهيمية
+3. **Memory-Guided Generation**
+   - استخدام الذاكرة لتوجيه التوليد
+   - مدعوم بـ Transformer
+4. **Embedded Organic Evolution**
+   - ضبط ذاتي للمعاملات (γ, λₚ, α, β) حسب الأداء
+5. **Multi-Layer Security**
+   - 14 طبقة تشفير
+   - مفتاح اتصال مدمج
+
+## Data Flow Diagram
+```plaintext
+Input → Preprocessing → DSM → Proactive Attention → Transformer Generation
+       ↘ Security Layer ↗
+Output
