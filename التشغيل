@@ -1,0 +1,11 @@
+ كيفية التشغيل:
+1. تثبيت المتطلبات:
+   ```bash
+   pip install torch qiskit qiskit-machine-learning networkx matplotlib
+   ```
+
+2. حفظ الكود في ملف `hybrid_network.py`
+
+3. التشغيل:
+   ```bash
+   python hybrid_network.py
