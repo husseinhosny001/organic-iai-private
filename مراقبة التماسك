@@ -1,0 +1,7 @@
+مراقبة التماسك**:
+```python
+def check_coherence(self):
+    return torch.allclose(
+        self.organic.growth.norm(), 
+        self.phantom_coeff.abs(),
+        atol=1e-6
