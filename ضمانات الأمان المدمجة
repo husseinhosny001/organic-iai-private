@@ -1,0 +1,7 @@
+ضمانات الأمان المدمجة
+
+1. **التدمير الذاتي التكيفي**:
+```python
+def self_destruct(self):
+    self.organic.growth.data *= 0
+    self.phantom_coeff.data = torch.tensor(0.)
