@@ -1,0 +1,20 @@
+---
+
+## **3. CODE_STRUCTURE.md**
+```markdown
+# Code Structure
+
+## Directory Layout
+organic-iai-technical-brief/ │ ├── core/ │   ├── dsm.py │   ├── attention.py │   ├── generation.py │   ├── evolution.py │   ├── security.py │   └── init.py │ ├── interfaces/ │   ├── streamlit_app.py │   ├── rest_api.py │   ├── websocket_server.py │ ├── tests/ │   ├── test_dsm.py │   ├── test_generation.py │ ├── requirements.txt ├── README.md ├── ARCHITECTURE.md └── CODE_STRUCTURE.md
+
+---
+
+## Running Tests
+```bash
+pytest tests/
+
+
+---
+Local: streamlit run interfaces/streamlit_app.py
+
+Server: Deploy REST API via uvicorn interfaces.rest_api:app --reload
