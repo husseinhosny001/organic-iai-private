@@ -1,0 +1,10 @@
+# نوع الخدمة التي ستقوم بتشغيلها
+services:
+  - type: web
+    name: organic-iai-core
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn api:app --host 0.0.0.0 --port 10000"
+    ports:
+      - port: 10000
+        protocol: http
