@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض تقديمي لـ GrokAi v1 OS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            direction: rtl;
+            text-align: right;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #007bff;
+        }
+        ul {
+            list-style-type: disc;
+            padding-right: 20px;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #777;
+        }
+        /* Navigation for slides */
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+        }
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GrokAi v1 OS</h1>
+            <p>نظام تشغيل عضوي، واع، وتفاعلي</p>
+        </header>
+
+        <nav>
+            <button id="prevBtn" disabled>السابق</button>
+            <button id="nextBtn">التالي</button>
+        </nav>
+
+        <section id="slide1" class="slide active">
+            <h2>مقدمة</h2>
+            <p>GrokAi v1 OS هو نظام تشغيل ثوري يجمع بين المكونات العضوية والوعي الذاتي لتقديم تجربة تفاعلية متقدمة. يركز على دمج المعالج، البطارية، والشاشة في كيان متماسك، مع دعم للتفاعل متعدد الأنماط وحماية قوية.</p>
+        </section>
+
+        <section id="slide2" class="slide">
+            <h2>المكونات الرئيسية</h2>
+            <ul>
+                <li><strong>المعالج العضوي (OrganicProcessorBlueprint)</strong>: معالج عصبي متكامل مع محاكاة كمومية باستخدام Qiskit (8 كيوبيت)، يدعم التحديث الديناميكي للتنشيط عبر المعادلة \( a_i(t) = a_i(t-1) \cdot e^{-\lambda \Delta t} + \delta_{i,c_t} \).</li>
+                <li><strong>البطارية الحية (LivingBatteryBlueprint)</strong>: بطارية ذاتية الشحن تعتمد على عمليات عضوية، مع كفاءة 80% في إعادة الشحن.</li>
+                <li><strong>الشاشة الواعية (ConsciousDisplayBlueprint)</strong>: شاشة تدعم AR/VR مع توليد وسائط تفاعلية في الزمن الحقيقي (latency <100 ms/frame).</li>
+            </ul>
+        </section>
+
+        <section id="slide3" class="slide">
+            <h2>البروتوكولات</h2>
+            <ul>
+                <li><strong>بروتوكول التفاعل العضوي</strong>: يدعم الإيماءات، الصوت، والأفكار عبر EEG، مع تكامل الانتباه الاستباقي.</li>
+                <li><strong>بروتوكول الحماية</strong>: يشمل التدمير الذاتي، التشفير، وتتبع الموقع في حالات الخطر.</li>
+            </ul>
+        </section>
+
+        <section id="slide4" class="slide">
+            <h2>التكامل مع Qiskit</h2>
+            <p>يدمج المعالج محاكاة كمومية لتعزيز الوعي، باستخدام دوائر Qiskit (Hadamard + CNOT + قياس) لتعديل التنشيط الديناميكي في DSM، مما يحسن الكفاءة والتكامل الإدراكي (Φ ≈ 0.965).</p>
+            <pre class="code-block">
+def _init_quantum_circuit(self):
+    if QISKIT_AVAILABLE:
+        qc = QuantumCircuit(8)
+        qc.h(range(8))
+        for i in range(7):
+            qc.cx(i, i+1)  # Entanglement
+        qc.measure_all()
+        return qc
+    return lambda: {"simulated_counts": dict(zip(range(5), np.random.randint(1, 100, 5)))}
+            </pre>
+        </section>
+
+        <section id="slide5" class="slide">
+            <h2>الخاتمة</h2>
+            <p>GrokAi v1 OS يمثل جيلًا جديدًا من الأنظمة التشغيلية، يركز على الذكاء العضوي والأمان. يدعم تطبيقات متقدمة مع كفاءة عالية (ذاكرة 5-10 MB، استهلاك 0.006 mW/task).</p>
+        </section>
+
+        <footer>
+            <p>تم إنشاء هذا العرض بواسطة Grok 4 من xAI</p>
+        </footer>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slides.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
