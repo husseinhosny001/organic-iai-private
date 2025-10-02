@@ -1,0 +1,52 @@
+class PDFExporter {
+    static async export(slides, lang) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Add custom Arabic font support
+        doc.addFont('https://fonts.googleapis.com/css2?family=Amiri&display=swap', 'Amiri', 'normal');
+        
+        let yPosition = 20;
+        const pageHeight = doc.internal.pageSize.height;
+        
+        for (let i = 0; i < slides.length; i++) {
+            const slide = slides[i];
+            const content = lang === 'ar' ? slide.ar : slide.en;
+            
+            // Add title
+            doc.setFontSize(20);
+            doc.setFont('Amiri', 'normal');
+            doc.text(content.title, 20, yPosition);
+            yPosition += 15;
+            
+            // Add subtitle if exists
+            if (content.subtitle) {
+                doc.setFontSize(14);
+                doc.text(content.subtitle, 20, yPosition);
+                yPosition += 10;
+            }
+            
+            // Add content (simplified)
+            doc.setFontSize(12);
+            const lines = doc.splitTextToSize(this.stripHTML(content.content), 170);
+            doc.text(lines, 20, yPosition);
+            
+            yPosition += (lines.length * 7) + 20;
+            
+            // Add new page if needed
+            if (yPosition > pageHeight - 50 && i < slides.length - 1) {
+                doc.addPage();
+                yPosition = 20;
+            }
+        }
+        
+        // Save the PDF
+        doc.save(`organic-iai-presentation-${lang}.pdf`);
+    }
+    
+    static stripHTML(html) {
+        const tmp = document.createElement('DIV');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
+    }
+}
