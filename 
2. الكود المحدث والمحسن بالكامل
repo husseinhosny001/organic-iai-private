@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3498db" />
+    <meta name="description" content="عرض تقديمي - Organic iAi Core Transformation" />
+    <title>عرض تقديمي - Organic iAi Core Transformation</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/responsive.css" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="js/app.js" as="script" />
+</head>
+<body>
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+
+    <button id="langToggle" aria-label="تبديل اللغة">Switch to English</button>
+
+    <div class="container">
+        <main id="main-content">
+            <!-- Slides will be dynamically loaded here -->
+        </main>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" disabled aria-label="الشريحة السابقة">السابق / Prev</button>
+            <button id="nextBtn" aria-label="الشريحة التالية">التالي / Next</button>
+            <button id="fullscreenBtn" aria-label="وضع العرض الكامل">🖥️</button>
+            <button id="exportPdfBtn" aria-label="تصدير إلى PDF">📄</button>
+        </div>
+        
+        <div class="slide-number" id="slideNumber">الشريحة 1 من 7</div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/pdf-export.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/js/service-worker.js')
+                .then(() => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed'));
+        }
+    </script>
+</body>
+</html>
