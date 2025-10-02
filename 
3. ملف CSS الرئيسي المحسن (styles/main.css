@@ -1,0 +1,236 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #2ecc71;
+    --text-color: #333;
+    --bg-color: #f7f9fc;
+    --slide-bg: #ffffff;
+    --shadow: 0 0 20px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    transform: translateZ(0);
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    direction: rtl;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--slide-bg);
+    box-shadow: var(--shadow);
+    border-radius: 15px;
+    overflow: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Slide Styles */
+.slide {
+    display: none;
+    padding: 50px 70px;
+    min-height: 500px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide.fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Typography */
+.lang-ar { 
+    direction: rtl; 
+    text-align: right;
+    line-height: 1.8;
+    font-size: 1.1em;
+}
+
+.lang-en { 
+    direction: ltr; 
+    text-align: left;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    margin: 0 0 25px 0;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+h2 {
+    font-size: 2em;
+    color: var(--secondary-color);
+    border-right: 4px solid var(--primary-color);
+    padding-right: 15px;
+}
+
+.lang-en h2 {
+    border-right: none;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 15px;
+    padding-right: 0;
+}
+
+/* Navigation */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 70px;
+    background: #ecf0f1;
+    border-top: 1px solid #ddd;
+    gap: 10px;
+}
+
+button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+button:hover:not(:disabled) {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#langToggle {
+    background: var(--accent-color);
+    margin: 20px auto;
+    display: block;
+}
+
+#fullscreenBtn, #exportPdfBtn {
+    background: #9b59b6;
+    padding: 12px 20px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #ecf0f1;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Loading Spinner */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Print Styles */
+@media print {
+    .nav-buttons, #langToggle, .progress-bar {
+        display: none;
+    }
+    
+    .slide {
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
+        page-break-after: always;
+    }
+}
