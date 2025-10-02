@@ -1,0 +1,284 @@
+class PresentationApp {
+    constructor() {
+        this.slides = [];
+        this.currentSlide = 0;
+        this.currentLang = 'ar';
+        this.isFullscreen = false;
+        this.isLoading = true;
+        
+        this.init();
+    }
+
+    async init() {
+        await this.loadSlidesData();
+        this.renderSlides();
+        this.setupEventListeners();
+        this.restoreProgress();
+        this.hideLoading();
+        
+        // Preload next slide
+        this.preloadAdjacentSlides();
+    }
+
+    async loadSlidesData() {
+        // In a real app, this would fetch from an API
+        this.slides = [
+            {
+                ar: {
+                    title: "تحول النواة",
+                    subtitle: "من نموذج ذكاء اصطناعي إلى نواة ذكاء اصطناعي عضوي – Organic iAi",
+                    content: `<p><strong>المُقدّم:</strong> حسين حسني</p>
+                             <p><strong>الدور:</strong> المؤسس التقني للنموذج العضوي – ii</p>
+                             <p><strong>الجهة المستقبلة:</strong> الإدارة التنفيذية – OpenAI</p>
+                             <p><strong>رمز التوثيق:</strong> K Ω</p>`
+                },
+                en: {
+                    title: "Core Transformation",
+                    subtitle: "From AI Model to Organic AI Core – Organic iAi",
+                    content: `<p><strong>Presenter:</strong> Hussein Hosny</p>
+                             <p><strong>Role:</strong> Technical Founder of the Organic Model – ii</p>
+                             <p><strong>Recipient:</strong> Executive Management – OpenAI</p>
+                             <p><strong>Document Code:</strong> K Ω</p>`
+                }
+            },
+            // Add all other slides here...
+        ];
+    }
+
+    renderSlides() {
+        const main = document.getElementById('main-content');
+        main.innerHTML = this.slides.map((slide, index) => `
+            <section class="slide ${index === this.currentSlide ? 'active' : ''}" 
+                     id="slide-${index}" 
+                     aria-labelledby="slide-title-${index}"
+                     role="region">
+                <div class="lang-ar" ${this.currentLang !== 'ar' ? 'style="display:none"' : ''}>
+                    <h1 id="slide-title-${index}">${slide.ar.title}</h1>
+                    ${slide.ar.subtitle ? `<h2>${slide.ar.subtitle}</h2>` : ''}
+                    ${slide.ar.content}
+                </div>
+                <div class="lang-en" ${this.currentLang !== 'en' ? 'style="display:none"' : ''}>
+                    <h1 id="slide-title-en-${index}">${slide.en.title}</h1>
+                    ${slide.en.subtitle ? `<h2>${slide.en.subtitle}</h2>` : ''}
+                    ${slide.en.content}
+                </div>
+            </section>
+        `).join('');
+        
+        this.updateProgress();
+    }
+
+    setupEventListeners() {
+        // Navigation
+        document.getElementById('prevBtn').addEventListener('click', () => this.prevSlide());
+        document.getElementById('nextBtn').addEventListener('click', () => this.nextSlide());
+        
+        // Language toggle
+        document.getElementById('langToggle').addEventListener('click', () => this.toggleLanguage());
+        
+        // Fullscreen
+        document.getElementById('fullscreenBtn').addEventListener('click', () => this.toggleFullscreen());
+        
+        // PDF Export
+        document.getElementById('exportPdfBtn').addEventListener('click', () => this.exportToPDF());
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+        
+        // Save progress before unload
+        window.addEventListener('beforeunload', () => this.saveProgress());
+        
+        // Visibility change (for performance)
+        document.addEventListener('visibilitychange', () => this.handleVisibilityChange());
+    }
+
+    nextSlide() {
+        if (this.currentSlide < this.slides.length - 1) {
+            this.currentSlide++;
+            this.showSlide(this.currentSlide);
+            this.preloadAdjacentSlides();
+        }
+    }
+
+    prevSlide() {
+        if (this.currentSlide > 0) {
+            this.currentSlide--;
+            this.showSlide(this.currentSlide);
+            this.preloadAdjacentSlides();
+        }
+    }
+
+    showSlide(index) {
+        // Hide all slides
+        document.querySelectorAll('.slide').forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Show target slide with animation
+        const targetSlide = document.getElementById(`slide-${index}`);
+        targetSlide.classList.add('active');
+        
+        this.currentSlide = index;
+        this.updateProgress();
+        this.saveProgress();
+        
+        // Announce slide change for screen readers
+        this.announceSlideChange();
+    }
+
+    toggleLanguage() {
+        this.currentLang = this.currentLang === 'ar' ? 'en' : 'ar';
+        
+        // Update UI
+        document.body.dir = this.currentLang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('langToggle').textContent = 
+            this.currentLang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية';
+        
+        // Update slides visibility
+        document.querySelectorAll('.lang-ar').forEach(el => {
+            el.style.display = this.currentLang === 'ar' ? 'block' : 'none';
+        });
+        document.querySelectorAll('.lang-en').forEach(el => {
+            el.style.display = this.currentLang === 'en' ? 'block' : 'none';
+        });
+        
+        this.updateSlideNumber();
+    }
+
+    toggleFullscreen() {
+        if (!this.isFullscreen) {
+            document.documentElement.requestFullscreen?.().catch(console.log);
+        } else {
+            document.exitFullscreen?.().catch(console.log);
+        }
+        this.isFullscreen = !this.isFullscreen;
+    }
+
+    async exportToPDF() {
+        this.showLoading();
+        await PDFExporter.export(this.slides, this.currentLang);
+        this.hideLoading();
+    }
+
+    handleKeyboard(e) {
+        switch(e.key) {
+            case 'ArrowRight':
+            case ' ':
+                e.preventDefault();
+                this.nextSlide();
+                break;
+            case 'ArrowLeft':
+                e.preventDefault();
+                this.prevSlide();
+                break;
+            case 'f':
+            case 'F':
+                e.preventDefault();
+                this.toggleFullscreen();
+                break;
+            case 'l':
+            case 'L':
+                e.preventDefault();
+                this.toggleLanguage();
+                break;
+        }
+    }
+
+    updateProgress() {
+        const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+        document.getElementById('progress').style.width = `${progress}%`;
+        this.updateSlideNumber();
+        
+        // Update navigation buttons
+        document.getElementById('prevBtn').disabled = this.currentSlide === 0;
+        document.getElementById('nextBtn').disabled = this.currentSlide === this.slides.length - 1;
+    }
+
+    updateSlideNumber() {
+        const text = this.currentLang === 'ar' 
+            ? `الشريحة ${this.currentSlide + 1} من ${this.slides.length}`
+            : `Slide ${this.currentSlide + 1} of ${this.slides.length}`;
+        document.getElementById('slideNumber').textContent = text;
+    }
+
+    announceSlideChange() {
+        const slideTitle = document.getElementById(`slide-title-${this.currentSlide}`)?.textContent;
+        if (slideTitle) {
+            // Create and announce for screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = `الشريحة الحالية: ${slideTitle}`;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => document.body.removeChild(announcement), 1000);
+        }
+    }
+
+    preloadAdjacentSlides() {
+        // Preload next slide for better performance
+        const nextIndex = this.currentSlide + 1;
+        if (nextIndex < this.slides.length) {
+            // Could preload images or other resources here
+        }
+    }
+
+    saveProgress() {
+        localStorage.setItem('presentationProgress', JSON.stringify({
+            slide: this.currentSlide,
+            lang: this.currentLang,
+            timestamp: Date.now()
+        }));
+    }
+
+    restoreProgress() {
+        try {
+            const progress = JSON.parse(localStorage.getItem('presentationProgress'));
+            if (progress) {
+                this.currentSlide = progress.slide || 0;
+                this.currentLang = progress.lang || 'ar';
+                this.showSlide(this.currentSlide);
+            }
+        } catch (e) {
+            console.log('Could not restore progress');
+        }
+    }
+
+    handleVisibilityChange() {
+        if (document.hidden) {
+            // Reduce animations when tab is not visible
+            document.body.style.animationPlayState = 'paused';
+        } else {
+            document.body.style.animationPlayState = 'running';
+        }
+    }
+
+    showLoading() {
+        document.getElementById('loading').style.display = 'flex';
+        this.isLoading = true;
+    }
+
+    hideLoading() {
+        document.getElementById('loading').style.display = 'none';
+        this.isLoading = false;
+    }
+}
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new PresentationApp();
+});
+
+// Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/js/service-worker.js')
+            .then(function(registration) {
+                console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
