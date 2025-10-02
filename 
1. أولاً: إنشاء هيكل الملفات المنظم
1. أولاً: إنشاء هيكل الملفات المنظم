@@ -1,0 +1,13 @@
+organic-presentation/
+├── index.html
+├── styles/
+│   ├── main.css
+│   └── responsive.css
+├── js/
+│   ├── app.js
+│   ├── service-worker.js
+│   └── pdf-export.js
+├── manifest.json
+└── assets/
+    ├── icons/
+    └── fonts/
