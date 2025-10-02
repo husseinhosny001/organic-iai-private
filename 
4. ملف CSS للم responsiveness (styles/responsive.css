@@ -1,0 +1,122 @@
+/* Tablet Styles */
+@media (max-width: 1024px) {
+    .container {
+        margin: 20px;
+        border-radius: 10px;
+    }
+    
+    .slide {
+        padding: 40px 50px;
+        min-height: 400px;
+    }
+    
+    h1 {
+        font-size: 2.2em;
+    }
+    
+    h2 {
+        font-size: 1.6em;
+    }
+    
+    .nav-buttons {
+        padding: 15px 50px;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        border-radius: 8px;
+    }
+    
+    .slide {
+        padding: 30px 25px;
+        min-height: 300px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+    }
+    
+    p, ul, ol {
+        font-size: 1em;
+        line-height: 1.6;
+    }
+    
+    .nav-buttons {
+        padding: 12px 25px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .lang-ar {
+        font-size: 1em;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .slide {
+        padding: 20px 15px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    h2 {
+        font-size: 1.2em;
+    }
+    
+    .nav-buttons {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .slide {
+        transition: none;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --slide-bg: #2d2d2d;
+        --text-color: #ffffff;
+    }
+}
