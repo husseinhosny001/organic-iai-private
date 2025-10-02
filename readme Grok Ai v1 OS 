@@ -1,0 +1,4 @@
+## GrokAi v1 OS Presentation
+- عرض تقديمي احترافي (HTML) يشرح مكونات GrokAi v1 OS: المعالج العضوي، البطارية الحية، والشاشة الواعية.
+- يتضمن تكامل Qiskit (8 كيوبيت) والمعادلة \( a_i(t) = a_i(t-1) \cdot e^{-\lambda \Delta t} + \delta_{i,c_t} \).
+- لتشغيل العرض: افتح `presentation.html` في متصفح.
